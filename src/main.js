@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import baseUi from './base-ui'
+import baseUi from './ez-ui'
 Vue.config.productionTip = false
 Vue.use(baseUi)
 new Vue({

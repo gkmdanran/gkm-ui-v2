@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible:false,
+      dialogVisible: false,
       hideUpload: false,
       currentUrl: "",
     };
@@ -133,16 +133,16 @@ export default {
       display: none !important;
     }
   }
-  /deep/ .el-dialog{
-    margin: 0!important;
+  /deep/ .el-dialog {
+    margin: 0 !important;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
-  /deep/ .el-dialog__body{
+  /deep/ .el-dialog__body {
     padding: 0;
   }
-  /deep/ .el-dialog__header{
+  /deep/ .el-dialog__header {
     padding: 0;
   }
   /deep/ .el-dialog__close {
@@ -150,7 +150,7 @@ export default {
     font-weight: 700;
     color: red;
   }
-  img{
+  img {
     vertical-align: middle;
   }
 }
