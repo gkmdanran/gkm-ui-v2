@@ -13,7 +13,6 @@
       :on-exceed="handleExceed"
       :before-upload="handelBeforeUpload"
       :before-remove="handleBeforeRemove"
-      :http-request="handelRequest"
       v-bind="$attrs"
     >
       <template #trigger>
@@ -42,6 +41,9 @@ export default {
       type: Array,
       default: () => [],
     },
+    fileSize: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -64,6 +66,10 @@ export default {
       this.$emit("success", response, file, fileList);
     },
     handleError(err, file, fileList) {
+      this.$message({
+        type: "error",
+        message: `文件上传失败!`,
+      });
       this.$emit("error", err, file, fileList);
     },
     handleProgress(event, file, fileList) {
@@ -71,37 +77,35 @@ export default {
     },
     handleChange(file, fileList) {
       if (this.$attrs["auto-upload"] == false) {
-        let ext = file.name.substr(file.name.lastIndexOf(".") + 1);
-        if (this.extensions && !this.extensions.includes(ext)) {
-          this.$message({
-            type: "warning",
-            message: "文件格式错误！",
-          });
+        console.log("handleChange");
+        if (
+          !this.validityExtensions(file.name) ||
+          !this.validityFileSize(file.size)
+        )
           fileList.pop();
-        }
       }
       this.hideUpload = fileList.length >= this.$attrs.limit;
       this.$emit("change", file, fileList);
     },
     handleExceed(file, fileList) {
+      this.$message({
+        type: "warning",
+        message: `最多上传${this.$attrs.limit}个文件`,
+      });
       this.$emit("exceed", file, fileList);
     },
     handelBeforeUpload(file) {
-      let ext = file.name.substr(file.name.lastIndexOf(".") + 1);
-      if (this.extensions && !this.extensions.includes(ext)) {
-        this.$message({
-          type: "warning",
-          message: "文件格式错误！",
-        });
+      console.log("handelBeforeUpload");
+      if (!this.validityExtensions(file.name)) {
+        return false;
+      }
+      if (!this.validityFileSize(file.size)) {
         return false;
       }
       this.$emit("beforeUpload", file);
     },
     handleBeforeRemove(file, fileList) {
       this.$emit("beforeRemove", file, fileList);
-    },
-    handelRequest() {
-      this.$emit("request");
     },
 
     clearFiles() {
@@ -113,6 +117,38 @@ export default {
     },
     submit() {
       this.$refs.elUpload.submit();
+    },
+
+    //校验格式
+    validityExtensions(fileName) {
+      let ext = fileName.substr(fileName.lastIndexOf(".") + 1);
+      if (this.extensions && !this.extensions.includes(ext)) {
+        this.$message({
+          type: "warning",
+          message: `请上传文件后缀名为：${this.extensions.join("、")}的文件`,
+        });
+        return false;
+      }
+      return true;
+    },
+    //校验大小
+    validityFileSize(fileSize) {
+      if (this.fileSize) {
+        let typeList = ["kb", "mb", "gb"];
+        let type = this.fileSize.substring(this.fileSize.length - 2) || "";
+        let number = this.fileSize.replace(type, "");
+        let index = typeList.indexOf(type);
+        if (index == -1 || !number) throw new Error("wrong fileSize");
+        let size = number * Math.pow(1024, index + 1);
+        if (size < fileSize) {
+          this.$message({
+            type: "warning",
+            message: `文件大小不能超过${this.fileSize}`,
+          });
+          return false;
+        }
+      }
+      return true;
     },
   },
   watch: {
