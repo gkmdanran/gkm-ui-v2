@@ -77,7 +77,6 @@ export default {
     },
     handleChange(file, fileList) {
       if (this.$attrs["auto-upload"] == false) {
-        console.log("handleChange");
         if (
           !this.validityExtensions(file.name) ||
           !this.validityFileSize(file.size)
@@ -95,7 +94,6 @@ export default {
       this.$emit("exceed", file, fileList);
     },
     handelBeforeUpload(file) {
-      console.log("handelBeforeUpload");
       if (!this.validityExtensions(file.name)) {
         return false;
       }

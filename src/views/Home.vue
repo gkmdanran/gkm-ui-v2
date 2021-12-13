@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <ez-menu :menu-json="menuJson" router></ez-menu>
+    <ez-search
+      :search-json="json"
+      label-width="50px"
+      @search="handleSearch"
+    ></ez-search>
   </div>
 </template>
 
@@ -57,12 +61,42 @@ export default {
           },
         ],
       },
+      json: {
+        searchItems: [
+          {
+            type: "input",
+            label: "姓名",
+            prop: "name",
+            layout: "250px",
+          },
+          {
+            type: "select",
+            label: "性别",
+            prop: "sex",
+            layout: "250px",
+            selectOptions: [
+              { label: "男", value: "1" },
+              { label: "女", value: "0" },
+            ],
+          },
+          {
+            type: "datetime",
+            label: "时间",
+            prop: "date",
+            layout: "500px",
+            options: {
+              type: "date",
+              valueFormat: "yyyy-MM-dd",
+            },
+          },
+        ],
+      },
     };
   },
   created() {},
   methods: {
-    error(err) {
-      console.log(err);
+    handleSearch(v) {
+      console.log(v);
     },
   },
 };
