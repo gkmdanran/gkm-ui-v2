@@ -110,8 +110,8 @@ export default {
       this.$refs.elUpload.clearFiles();
       this.hideUpload = false;
     },
-    abort() {
-      this.$refs.elUpload.abort();
+    abort(file) {
+      this.$refs.elUpload.abort(file);
     },
     submit() {
       this.$refs.elUpload.submit();

@@ -1,5 +1,11 @@
 <template>
-  <el-menu class="ez-menu" ref="elMenu" v-bind="$attrs" v-on="$listeners">
+  <el-menu
+    class="ez-menu"
+    ref="elMenu"
+    v-bind="$attrs"
+    v-on="$listeners"
+    :default-active="activeNow"
+  >
     <menu-tree
       parentPath=""
       v-for="(item, index) in menuJson.menus"
@@ -26,15 +32,26 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    activeNow() {
+      return this.$route.path;
+    },
+  },
   methods: {
     open(index) {
-      this.$refs.open(index);
+      this.$refs.elMenu.open(index);
     },
     close(index) {
-      this.$refs.close(index);
+      this.$refs.elMenu.close(index);
     },
   },
 };
 </script>
 <style lang="less" scoped>
+.ez-menu {
+  overflow-x: hidden;
+  /deep/ .el-menu-item.is-active {
+    background-color: #12304c !important;
+  }
+}
 </style>
