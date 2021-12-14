@@ -74,6 +74,7 @@ export default {
     },
     handleBlur() {
       if (this.required && !this.value) {
+        this.$emit('error',this.value)
         return (this.wrong = true);
       }
       if (this.reg) {
@@ -81,12 +82,12 @@ export default {
           var valueArr = this.value.split(/\r?\n/);
           var flag = valueArr.some((item) => !this.reg.test(item));
           if (flag){
-            this.$emit('error')
+            this.$emit('error',this.value)
             return (this.wrong = true);
           }
         } else {
           if (!this.reg.test(this.value)){
-            this.$emit('error')
+            this.$emit('error',this.value)
             return (this.wrong = true);
           }
         }
