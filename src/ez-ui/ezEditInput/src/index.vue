@@ -80,13 +80,20 @@ export default {
         if (this.$attrs.type == "textarea") {
           var valueArr = this.value.split(/\r?\n/);
           var flag = valueArr.some((item) => !this.reg.test(item));
-          if (flag) return (this.wrong = true);
+          if (flag){
+            this.$emit('error')
+            return (this.wrong = true);
+          }
         } else {
-          if (!this.reg.test(this.value)) return (this.wrong = true);
+          if (!this.reg.test(this.value)){
+            this.$emit('error')
+            return (this.wrong = true);
+          }
         }
       }
       this.wrong = false;
       this.changeMode("read");
+      this.$emit('change',this.value)
     },
     changeMode(mode) {
       this.selfMode = mode;
