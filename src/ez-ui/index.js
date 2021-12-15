@@ -7,6 +7,7 @@ import ezSearch from './ezSearch'
 import ezScrollTab from './ezScrollTab'
 import ezEditInput from './ezEditInput'
 import ezEditSelect from './ezEditSelect'
+import ezDialogForm from './ezDialogForm'
 const components = [
     ezButton,
     ezUpload,
@@ -16,7 +17,8 @@ const components = [
     ezSearch,
     ezScrollTab,
     ezEditInput,
-    ezEditSelect
+    ezEditSelect,
+    ezDialogForm
 ]
 export default function (Vue) {
     components.forEach(component => {
