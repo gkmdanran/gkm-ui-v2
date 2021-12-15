@@ -4,7 +4,7 @@ import ezTable from './ezTable'
 import ezCollapseText from './ezCollapseText'
 import ezMenu from './ezMenu'
 import ezSearch from './ezSearch'
-import ezScroll from './ezScroll'
+import ezScrollTab from './ezScrollTab'
 import ezEditInput from './ezEditInput'
 import ezEditSelect from './ezEditSelect'
 const components = [
@@ -14,7 +14,7 @@ const components = [
     ezCollapseText,
     ezMenu,
     ezSearch,
-    ezScroll,
+    ezScrollTab,
     ezEditInput,
     ezEditSelect
 ]
