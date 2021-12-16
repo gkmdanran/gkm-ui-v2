@@ -1,21 +1,26 @@
 <template>
-  <el-form class="ez-search-form" v-bind="$attrs" v-if="initForm">
+  <el-form
+    class="ez-search-form"
+    v-bind="$attrs"
+    :label-width="labelWidth"
+    v-if="initForm"
+  >
     <el-row>
       <el-col
         :style="`width:${
           item.layout && typeof item.layout == 'string' && item.layout
         }`"
-        v-for="item in searchJson.searchItems"
+        v-for="(item, key) in searchJson.searchItems || {}"
         :xl="(item.layout && item.layout.xl) || 4"
         :lg="(item.layout && item.layout.lg) || 6"
         :md="(item.layout && item.layout.md) || 8"
         :sm="(item.layout && item.layout.sm) || 12"
         :xs="(item.layout && item.layout.xs) || 24"
-        :key="item.prop"
+        :key="key"
       >
         <el-form-item
           :label="item.label + '：'"
-          :prop="item.prop"
+          :prop="key"
           :style="
             searchJson.itemStyle
               ? searchJson.itemStyle
@@ -26,26 +31,25 @@
             v-if="item.type === 'input'"
             clearable
             :placeholder="item.placeholder || `请输入${item.label}`"
-            :size="searchJson.size || ''"
             style="width: 100%"
-            v-bind="item.options || {}"
-            :value="initForm[`${item.prop}`]"
-            @input="handleValueChange($event, item)"
+            v-bind="item.attrs || {}"
+            :value="initForm[key]"
+            @input="handleValueChange($event, key, item)"
           />
           <el-select
             v-else-if="item.type === 'select'"
             clearable
             :placeholder="item.placeholder || `请选择${item.label}`"
             style="width: 100%"
-            :size="searchJson.size || ''"
-            v-bind="item.options || {}"
-            :value="initForm[`${item.prop}`]"
-            @input="handleValueChange($event, item)"
+            v-bind="item.attrs || {}"
+            :value="initForm[key]"
+            @input="handleValueChange($event, key, item)"
           >
             <el-option
               v-for="opt in item.selectOptions"
+              v-bind="opt"
               :key="
-                opt[(item.selectProps && item.selectProps.label) || 'label']
+                opt[(item.selectProps && item.selectProps.value) || 'value']
               "
               :value="
                 opt[(item.selectProps && item.selectProps.value) || 'value']
@@ -59,22 +63,20 @@
             v-else-if="item.type === 'time'"
             clearable
             :placeholder="item.placeholder || `请选择${item.label}`"
-            :size="searchJson.size || ''"
             style="width: 100%"
-            v-bind="item.options || {}"
-            :value="initForm[`${item.prop}`]"
-            @input="handleValueChange($event, item)"
+            v-bind="item.attrs || {}"
+            :value="initForm[key]"
+            @input="handleValueChange($event, key, item)"
           >
           </el-time-picker>
           <el-date-picker
-            v-else-if="item.type === 'date' || 'datetime'"
+            v-else-if="item.type === 'date' || item.type === 'datetime'"
             clearable
             :placeholder="item.placeholder || `请选择${item.label}`"
-            :size="searchJson.size || ''"
             style="width: 100%"
-            v-bind="item.options || {}"
-            :value="initForm[`${item.prop}`]"
-            @input="handleValueChange($event, item)"
+            v-bind="item.attrs || {}"
+            :value="initForm[key]"
+            @input="handleValueChange($event, key, item)"
           >
           </el-date-picker>
         </el-form-item>
@@ -91,6 +93,9 @@ export default {
       type: Object,
       required: true,
     },
+    labelWidth: {
+      default: "80px",
+    },
   },
   data() {
     return {
@@ -99,8 +104,8 @@ export default {
     };
   },
   methods: {
-    handleValueChange(val, item) {
-      this.initForm[item.prop] = val;
+    handleValueChange(val, key, item) {
+      this.initForm[key] = val;
       const debounceEmit = this.debounce(() => {
         this.$emit("search", this.initForm);
       });
@@ -124,10 +129,11 @@ export default {
   },
   created() {
     const form = {};
-    for (let item of this.searchJson.searchItems) {
-      form[item.prop] = "";
+    for (let key in this.searchJson.searchItems) {
+      form[key] = "";
     }
     this.initForm = form;
+    console.log(this.initForm);
   },
 };
 </script>
