@@ -14,8 +14,9 @@
         <el-option
           v-for="(item, index) in options"
           :key="index"
-          :label="item[optionProps.label]"
-          :value="item[optionProps.value]"
+          :label="item[optionProps.label || 'label']"
+          :value="item[optionProps.value || 'value']"
+          v-bind="item"
         >
         </el-option>
       </el-select>
@@ -101,17 +102,17 @@ export default {
           var arr = [];
           v.forEach((vitem) => {
             var opt = this.options.find(
-              (item) => item[this.optionProps.value] == vitem
+              (item) => item[this.optionProps.value || "value"] == vitem
             );
             console.log(opt);
-            arr.push(opt ? opt[this.optionProps.label] : "");
+            arr.push(opt ? opt[this.optionProps.label || "label"] : "");
           });
           this.label = arr.join(",");
         } else {
           var opt = this.options.find(
-            (item) => item[this.optionProps.value] == v
+            (item) => item[this.optionProps.value || "value"] == v
           );
-          this.label = opt ? opt[this.optionProps.label] : "";
+          this.label = opt ? opt[this.optionProps.label || "label"] : "";
         }
       },
       immediate: true,
