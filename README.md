@@ -1,16 +1,13 @@
-# ez-ui
+# gkm-ui
 
-## Project setup
+## 安装方式
 ```
-npm install
+npm install gkm-ui
+```
+## 引入方式
+```
+import gkmUI from 'gkm-ui'
+import 'gkm-ui/dist/gkm-ui.css'
+Vue.use(gkmUI)
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
