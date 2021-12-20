@@ -1,3 +1,6 @@
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
 import ezButton from "./ezButton";
 import ezUpload from './ezUpload'
 import ezTable from './ezTable'
@@ -8,8 +11,8 @@ import ezScrollTab from './ezScrollTab'
 import ezEditInput from './ezEditInput'
 import ezEditSelect from './ezEditSelect'
 import ezDialogForm from './ezDialogForm'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ezContainer from './ezContainer'
+
 const components = [
     ezButton,
     ezUpload,
@@ -20,7 +23,8 @@ const components = [
     ezScrollTab,
     ezEditInput,
     ezEditSelect,
-    ezDialogForm
+    ezDialogForm,
+    ezContainer
 ]
 const install = function (Vue) {
     Vue.use(ElementUI)
