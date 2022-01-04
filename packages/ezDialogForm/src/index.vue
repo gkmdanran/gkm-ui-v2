@@ -184,6 +184,7 @@
                 {{ item.tips || "" }}
               </div>
             </ez-upload>
+            <slot :name="key" :value="value[key]" />
           </el-form-item>
         </el-col>
       </el-row>

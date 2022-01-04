@@ -110,10 +110,13 @@ export default {
       height: 100%;
       /deep/ .el-scrollbar__wrap {
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
       }
     }
     .main-content {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
       padding: 20px 25px;
     }
   }

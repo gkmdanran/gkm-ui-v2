@@ -1,15 +1,6 @@
 <template>
-  <div class="home">
-    {{ form }}
-    <ez-button @click="visible = true">222</ez-button>
-    <ez-dialog-form
-      title="新增"
-      :visible.sync="visible"
-      v-model="form"
-      :form-json="json"
-      @success="submit"
-    ></ez-dialog-form>
-  </div>
+  <ez-container title="产品回收站">
+  </ez-container>
 </template>
 
 <script>
@@ -57,9 +48,8 @@ export default {
   },
   created() {},
   methods: {
-    submit(v) {
-      console.log(v);
-      this.visible = false;
+    back() {
+      console.log('selfbACK')
     },
   },
 };

@@ -133,7 +133,6 @@ export default {
       form[key] = "";
     }
     this.initForm = form;
-    console.log(this.initForm);
   },
 };
 </script>
