@@ -192,7 +192,7 @@ export default {
     height: calc(100% - 40px);
     /deep/ .el-scrollbar__wrap {
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: scroll;
     }
   }
 }

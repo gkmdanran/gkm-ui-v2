@@ -44,6 +44,10 @@ export default {
     fileSize: {
       type: String,
     },
+    showPreviewDialog: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -55,7 +59,9 @@ export default {
   methods: {
     handlePreview(file) {
       this.currentUrl = file.url;
-      this.dialogVisible = true;
+      if (this.showPreviewDialog) {
+        this.dialogVisible = true;
+      }
       this.$emit("preview", file);
     },
     handleRemove(file, fileList) {
@@ -80,8 +86,11 @@ export default {
         if (
           !this.validityExtensions(file.name) ||
           !this.validityFileSize(file.size)
-        )
+        ) {
           fileList.pop();
+          this.hideUpload = fileList.length >= this.$attrs.limit;
+          return false;
+        }
       }
       this.hideUpload = fileList.length >= this.$attrs.limit;
       this.$emit("change", file, fileList);
