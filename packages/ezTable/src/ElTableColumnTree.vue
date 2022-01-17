@@ -10,6 +10,11 @@
     "
     v-bind="columnNode"
   >
+    <template #header="scope">
+      <slot :name="`${columnNode.headerSlot}`" v-bind="scope">
+        {{ columnNode.label || "" }}
+      </slot>
+    </template>
   </el-table-column>
 
   <el-table-column
@@ -42,6 +47,11 @@
     <template slot-scope="scope">
       <slot :name="`${columnNode.slotName}`" v-bind="scope">
         {{ scope.row[`${columnNode.prop}`] }}
+      </slot>
+    </template>
+    <template #header="scope">
+      <slot :name="`${columnNode.headerSlot}`" v-bind="scope">
+        {{ columnNode.label || "" }}
       </slot>
     </template>
   </el-table-column>
