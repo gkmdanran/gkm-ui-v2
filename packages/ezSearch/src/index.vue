@@ -1,10 +1,5 @@
 <template>
-  <el-form
-    class="ez-search-form"
-    v-bind="$attrs"
-    :label-width="labelWidth"
-    v-if="initForm"
-  >
+  <el-form class="ez-search-form" v-bind="$attrs" :label-width="labelWidth">
     <el-row>
       <el-col
         :style="`width:${
@@ -33,7 +28,7 @@
             :placeholder="item.placeholder || `请输入${item.label}`"
             style="width: 100%"
             v-bind="item.attrs || {}"
-            :value="initForm[key]"
+            :value="value[key]"
             @input="handleValueChange($event, key, item)"
           />
           <el-select
@@ -42,7 +37,7 @@
             :placeholder="item.placeholder || `请选择${item.label}`"
             style="width: 100%"
             v-bind="item.attrs || {}"
-            :value="initForm[key]"
+            :value="value[key]"
             @input="handleValueChange($event, key, item)"
           >
             <el-option
@@ -65,7 +60,7 @@
             :placeholder="item.placeholder || `请选择${item.label}`"
             style="width: 100%"
             v-bind="item.attrs || {}"
-            :value="initForm[key]"
+            :value="value[key]"
             @input="handleValueChange($event, key, item)"
           >
           </el-time-picker>
@@ -75,7 +70,7 @@
             :placeholder="item.placeholder || `请选择${item.label}`"
             style="width: 100%"
             v-bind="item.attrs || {}"
-            :value="initForm[key]"
+            :value="value[key]"
             @input="handleValueChange($event, key, item)"
           >
           </el-date-picker>
@@ -96,23 +91,25 @@ export default {
     labelWidth: {
       default: "80px",
     },
+    value: {
+      required: true,
+    },
   },
   data() {
     return {
-      initForm: null,
       timer: null,
     };
   },
   methods: {
     handleValueChange(val, key, item) {
-      this.initForm[key] = val;
+      this.$emit("input", { ...this.value, [key]: val });
       const debounceEmit = this.debounce(() => {
-        this.$emit("search", this.initForm);
+        this.$emit("search", { ...this.value, [key]: val });
       });
       if (item.type === "input") {
         debounceEmit();
       } else {
-        this.$emit("search", this.initForm);
+        this.$emit("search", { ...this.value, [key]: val });
       }
     },
     debounce(fn) {
@@ -126,13 +123,6 @@ export default {
         }, 500);
       };
     },
-  },
-  created() {
-    const form = {};
-    for (let key in this.searchJson.searchItems) {
-      form[key] = "";
-    }
-    this.initForm = form;
   },
 };
 </script>
