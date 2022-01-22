@@ -15,6 +15,7 @@ import ezContainer from './ezContainer'
 import ezCollapseList from './ezCollapseList'
 import ezIcon from './ezIcon'
 import ezLazyImg from './ezLazyImg'
+import ezEditor from './ezEditor'
 const components = [
     ezButton,
     ezUpload,
@@ -29,7 +30,8 @@ const components = [
     ezContainer,
     ezCollapseList,
     ezIcon,
-    ezLazyImg
+    ezLazyImg,
+    ezEditor
 ]
 const install = function (Vue) {
     Vue.use(ElementUI)

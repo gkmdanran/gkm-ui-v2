@@ -1,6 +1,14 @@
 <template>
-  <ez-container title="产品回收站">
-  </ez-container>
+  <div class="container">
+   
+    <ez-editor
+      :placeholder="'请输入内容'"
+      v-model="value"
+      @change="change"
+      :checkList="checkList"
+    ></ez-editor>
+
+  </div>
 </template>
 
 <script>
@@ -9,48 +17,24 @@ export default {
   components: {},
   data() {
     return {
-      visible: false,
-      form: {
-        name: "77",
-        age: "",
-        sex: "",
-      },
-      json: {
-        formAttributes: {
-          rules: {
-            name: [
-              { required: true, message: "请输入活动名称", trigger: "blur" },
-              {
-                min: 3,
-                max: 5,
-                message: "长度在 3 到 5 个字符",
-                trigger: "blur",
-              },
-            ],
-          },
-        },
-        formItems: {
-          name: {
-            type: "input",
-            label: "姓名",
-          },
-          sex: {
-            type: "input",
-            label: "性别",
-          },
-          age: {
-            type: "input",
-            label: "年龄",
-          },
-        },
-      },
+      checkList:['傻逼','智障'],
+      value:'你个智障'
     };
   },
-  created() {},
+  created() {
+    // window.setTimeout(() => {
+    //   this.value = "33333";
+    // }, 1000);
+  },
   methods: {
-    back() {
-      console.log('selfbACK')
+    change(e) {
+      console.log(e);
     },
   },
 };
 </script>
+<style scoped>
+.container {
+  padding: 20px;
+}
+</style>
