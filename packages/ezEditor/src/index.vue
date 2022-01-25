@@ -34,7 +34,6 @@ export default {
   },
   data() {
     return {
-      tempText: this.value,
       isLocked: false,
       oldValue: "",
     };
@@ -48,99 +47,8 @@ export default {
     },
   },
   methods: {
-    handleInput($event, value) {
-      this.$el.focus();
-      let html = null;
-      let ifChangedByValue = false;
-      // 自动高亮and or ( ) 的html
-      if (value) {
-        ifChangedByValue = true;
-      } else {
-        value = this.$el.innerText;
-      }
-      html = this.textToHtml(value);
-      let offsetInit = value ? value.length : 0; // 当前编辑的节点的偏移值，初始化为总长度或0
-      const newValueList = value.split("");
-      const oldValueList = this.tempText.split("");
-      if (newValueList.length > oldValueList.length) {
-        // 输入值
-        for (const indexOfValue in newValueList) {
-          if (newValueList[indexOfValue] !== oldValueList[indexOfValue]) {
-            offsetInit = parseInt(indexOfValue) + 1;
-            break;
-          }
-        }
-      } else {
-        // 删除值
-        for (const indexOfValue in oldValueList) {
-          if (newValueList[indexOfValue] !== oldValueList[indexOfValue]) {
-            offsetInit = parseInt(indexOfValue);
-            break;
-          }
-        }
-      }
-      if (window.getSelection) {
-        // IE9 and non-IE
-        const sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-          let range = sel.getRangeAt(0);
-          range.deleteContents();
-          var el = document.createElement("div");
-          el.innerHTML = html;
-          var frag = document.createDocumentFragment();
-          var node;
-          const nodeList = [];
-          while ((node = el.firstChild)) {
-            nodeList.push(frag.appendChild(node));
-          }
-          this.$el.innerHTML = ""; // 清空原有的html
-          range.insertNode(frag);
-          let offsetTemp = 0;
-          let nodeIndex = 0;
-          for (const indexOfNodes in this.$el.childNodes) {
-            let currentNodeLength = 0;
-            let nodeType = 1;
-            if (this.$el.childNodes[indexOfNodes].nodeType === 1) {
-              // span节点
-              currentNodeLength =
-                this.$el.childNodes[indexOfNodes].innerText.length;
-              nodeType = 1;
-            } else if (this.$el.childNodes[indexOfNodes].nodeType === 3) {
-              // text节点
-              currentNodeLength =
-                this.$el.childNodes[indexOfNodes].nodeValue.length;
-              nodeType = 3;
-            }
-            if (offsetTemp + currentNodeLength >= offsetInit) {
-              if (nodeType === 1) {
-                // 编辑的节点的偏移值计算
-                offsetInit = 1; // 元素节点偏移值固定为0、1
-              } else {
-                offsetInit = offsetInit - offsetTemp; // 文本节点偏移值计算
-              }
-              nodeIndex = parseInt(indexOfNodes);
-              break;
-            }
-            offsetTemp += currentNodeLength; // 累加编辑的节点之前的节点的长度
-          }
-          if (nodeList && nodeList[nodeIndex]) {
-            // nodeList[nodeIndex]为编辑的时候所在的节点
-            range = range.cloneRange();
-            range.setStart(nodeList[nodeIndex], offsetInit);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-          }
-        }
-      } else if (document.selection && document.selection.type !== "Control") {
-        // IE < 9
-        document.selection.createRange().pasteHTML(html);
-      }
-      this.tempText = this.$el.innerText;
-      if (!ifChangedByValue) {
-        // 如果是通过父组件传值改变值，则不再通知父组件；否则$emit
-        this.$emit("input", this.$el.innerText); // 通知父组件，value值改变
-      }
+    handleInput() {
+      this.$emit("input", this.$el.innerText);
     },
     handleFocus($event) {
       this.isLocked = true;
@@ -152,7 +60,7 @@ export default {
       if (this.oldValue !== this.value) {
         this.handleChange(this.value);
       }
-      this.innerHTML = this.textToHtml(this.value);
+
       this.$emit("blur", $event);
     },
     handleChange(val) {

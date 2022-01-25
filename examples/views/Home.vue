@@ -17,8 +17,8 @@ export default {
   components: {},
   data() {
     return {
-      checkList:['傻逼','智障'],
-      value:'你个智障'
+      checkList:['你好'],
+      value:'33222'
     };
   },
   created() {
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     change(e) {
-      console.log(e);
+     
     },
   },
 };

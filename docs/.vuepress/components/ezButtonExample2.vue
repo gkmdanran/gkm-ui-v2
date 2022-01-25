@@ -9,10 +9,11 @@
     >
     <ez-button
       :confirm="{
-        message: '即将跳转至百度',
+        title:'跳转',
+        message: '即将跳转',
         type: 'info',
-        confirmText: '去百度',
-        cancelText: '不想去',
+        confirmText: '同意',
+        cancelText: '拒绝',
       }"
       @confirmClick="handleConfirClick"
       @cancelClick="handleCancelClick"
