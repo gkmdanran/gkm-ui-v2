@@ -282,3 +282,122 @@ columns配置(支持el-table的所有Table-column Attributes)
 |ez-tophandler|表格操作按钮区域插槽|
 |ez-footer|表格底部区域插槽|
 |slotName或headerSlot定义的插槽|-|
+
+## ezUpload
+
+### 基本用法
+与el-upload用法一致，但是function类型的属性都转为事件形式。
+<ezUploadExample1/>
+
+```html
+<ez-upload
+  class="upload-demo"
+  action="https://jsonplaceholder.typicode.com/posts/"
+  @change="handleChange"
+  :auto-upload="false"
+  :extensions="['jpg', 'png']"
+  fileSize="500kb"
+  multiple
+  :limit="3"
+  :file-list="fileList"
+  >
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">
+    只能上传jpg/png文件，且不超过500kb
+  </div>
+</ez-upload>
+<script>
+export default {
+  data() {
+    return {
+      fileList: [
+        {
+          name: "food.jpeg",
+          url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+        },
+        {
+          name: "food2.jpeg",
+          url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+        },
+      ],
+    };
+  },
+  methods: {
+    handleChange(file, fileList) {
+      console.log(file, fileList);
+    },
+  },
+};
+</script>
+```
+
+拓展属性值
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|fileSize|可上传的文件大小|string|kb / mb / gb|-|
+|extensions|可以上传的后缀名|array|-|-|
+|showPreviewDialog|是否开启预览dialog|boolean|-|true|
+
+事件
+|事件名称|说明|
+|-|-|
+|preview|用法和参数与on-preview一致|
+|remove|用法和参数与on-remove一致|
+|success|用法和参数与on-success一致|
+|error|用法和参数与on-error一致|
+|progress|用法和参数与on-progress一致|
+|change|用法和参数与on-change一致|
+|exceed|用法和参数与on-exceed一致|
+|beforeUpload|用法和参数与before-upload一致|
+|beforeRemove|用法和参数与before-remove一致|
+
+## ezEditInput
+### 基本用法
+部分属性和el-input一致
+<ezEditInputExample1/>
+```html
+<ez-edit-input
+  v-model="value"
+  mode="read"
+  type="input"
+  required
+  @change="handleChange"
+  @error="handleError"
+  :reg="/^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i"
+></ez-edit-input>
+<ez-edit-input
+  v-model="value2"
+  mode="read"
+  type="textarea"
+  required
+  @change="handleChange"
+  @error="handleError"
+></ez-edit-input>
+<script>
+export default {
+  name: "ezEditInputExample1",
+  data() {
+    return {
+      value: "gkmui123",
+      value2: "gkmui123",
+    };
+  },
+  methods: {
+    handleChange(v) {
+      console.log(v);
+    },
+    handleError(v) {
+      alert("格式不规范");
+      console.log(v);
+    },
+  },
+};
+</script>
+```
+属性值
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|v-model|双向绑定文本|string|-|必填|
+|moded|读、编辑模式|string|edit/read|read|
+|required|是否必填|boolean|-|false|
+|reg|正则表达式|RegExp|-|-|
