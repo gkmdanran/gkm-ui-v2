@@ -103,7 +103,7 @@ export default {
     margin-top: 10px;
     background-color: #fff;
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
-    height: calc(100vh - 100px);
+    height: calc(100% - 60px);
     overflow-y: auto;
     .container-scroll {
       width: 100%;

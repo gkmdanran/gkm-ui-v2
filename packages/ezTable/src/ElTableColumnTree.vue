@@ -27,6 +27,11 @@
     "
     v-bind="columnNode"
   >
+    <template #header="scope">
+      <slot :name="`${columnNode.headerSlot}`" v-bind="scope">
+        {{ columnNode.label || "" }}
+      </slot>
+    </template>
     <template>
       <el-table-column-tree
         :columnNode="subitem"

@@ -84,7 +84,6 @@ confirm属性值
 </ez-collapse-list>
 <script>
 export default {
-  name: "ezCollapseListExample1",
   data() {
     return {
       list: [
@@ -135,5 +134,151 @@ export default {
 |text|文本内容|string|-|''|
 |limit|最多显示的文本数|number|-|10|
 
+## ezContainer
 
+### 基本用法
+带返回功能的layout
+<ezContainerExample1/>
 
+```html
+<ez-container
+  @back="handleBack"
+  style="height: 100%"
+  icon="el-icon-d-arrow-left"
+  backText="返回主页"
+  title="用户列表"
+>
+  <div style="height: 200px">vue</div>
+  <div style="height: 200px">react</div>
+  <div style="height: 200px">node</div>
+  <div style="height: 200px">webpack</div>
+</ez-container>
+<script>
+export default {
+  methods: {
+    handleBack() {
+      alert("back");
+    },
+  },
+};
+</script>
+```
+
+属性值
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|icon|返回icon样式|string|elementui所有icon|el-icon-arrow-left|
+|backText|返回文本内容|string|-|返回|
+|title|标题|string|-|''|
+
+事件
+|事件名称|说明|回调参数|
+|-|-|-|
+|back|点击返回按钮的回调|-|
+
+## ezTable
+### 基本用法
+采用json的方式渲染el-table表格
+
+<ezTableExample1/>
+
+```html
+<ez-table
+  ref="demo"
+  :data="data"
+  :table-json="json"
+  @selection-change="handleSelectionChange"
+>
+  <template #ez-tophandler>
+    <ez-button @click="clearSelection">清除勾选</ez-button>
+  </template>
+  <template #detail> 详细信息 <i class="el-icon-user-solid"></i> </template>
+  <template #sex="scope">
+    {{ scope.row.sex === 1 ? "男" : "女" }}
+  </template>
+  <template #handler>
+    <ez-button type="text">删除</ez-button>
+  </template>
+</ez-table>
+<script>
+export default {
+  data() {
+    return {
+      data: [
+        { name: "小明", age: 10, sex: 1 },
+        { name: "小红", age: 12, sex: 0 },
+      ],
+      json: {
+        title: "学生列表",
+        columns: [
+          {
+            type: "selection",
+          },
+          {
+            label: "姓名",
+            prop: "name",
+          },
+          {
+            label: "详细信息",
+            headerSlot: "detail",
+            children: [
+              {
+                label: "年龄",
+                prop: "age",
+              },
+              {
+                label: "性别",
+                prop: "sex",
+                slotName: "sex",
+              },
+            ],
+          },
+          {
+            label: "操作",
+            slotName: "handler",
+          },
+        ],
+      },
+    };
+  },
+  methods: {
+    handleSelectionChange(val) {
+      console.log(val);
+    },
+    clearSelection() {
+      this.$refs.demo.elTable.clearSelection();     //需要加上.elTable
+    },
+  },
+};
+</script>
+```
+属性值(支持el-table的所有Table Attributes)
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|tableJson|json配置|object|-|必填|
+|loading|表格loading效果|boolean|-|false|
+
+tableJson配置
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|title|表格标题|string|-|''|
+|columns|列配置|array|-|[]|
+
+columns配置(支持el-table的所有Table-column Attributes)
+|参数|说明|类型|可选值|默认值|
+|-|-|-|-|-|
+|slotName|内容插槽|string|-|-|
+|children|嵌套表格|array|-|-|
+|headerSlot|头部插槽|string|-|-|
+
+事件(支持el-table的所有Table Events)
+
+方法(支持el-table的所有Table Methods,调用方式有变化,详情见样例)
+
+插槽
+|name|说明
+|-|-|
+|ez-header|表格标题区域插槽|
+|ez-tophandler|表格操作按钮区域插槽|
+|ez-footer|表格底部区域插槽|
+|slotName或headerSlot定义的插槽|-|
