@@ -1,5 +1,10 @@
 <template>
-  <el-radio-group v-bind="$attrs" :value="value" @input="handleChange">
+  <el-radio-group
+    v-bind="$attrs"
+    :value="value"
+    @input="handleInput"
+    @change="handleChange"
+  >
     <slot></slot>
   </el-radio-group>
 </template>
@@ -14,35 +19,36 @@ export default {
       type: Function,
     },
   },
-  model: {
-    prop: "value",
-    event: "change",
-  },
   data() {
-    return {};
+    return {
+      preValue: "",
+    };
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler(newVal, oldVal) {
+        this.preValue = oldVal;
+      },
+    },
   },
   methods: {
+    handleInput(val) {
+      this.$emit("input", val);
+    },
     async handleChange(val) {
-      if (this.beforeChange === undefined) return this.$emit("change", val);
+      if (this.beforeChange === undefined) {
+        return this.$emit("change", val);
+      }
       let result = await this.beforeChange(val);
-      if (result) return this.$emit("change", val);
+      if (result) {
+        this.$emit("change", val);
+      } else {
+        this.$emit("input", this.preValue);
+      }
     },
   },
 };
 </script>
 <style lang="less" scoped>
-/deep/.el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  background-color: #fff;
-  color: #606266;
-  border-color: #dcdfe6;
-  box-shadow: none;
-}
-/deep/.el-radio-button.is-active
-  .el-radio-button__orig-radio:checked
-  + .el-radio-button__inner {
-  color: #fff;
-  background-color: #409eff;
-  border-color: #409eff;
-  box-shadow: -1px 0 0 0 #409eff;
-}
 </style>

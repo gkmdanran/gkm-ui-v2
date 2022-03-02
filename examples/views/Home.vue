@@ -6,9 +6,9 @@
       @change="change"
       :before-change="handleBeforeChange"
     >
-      <el-radio :label="3">3</el-radio>
-      <el-radio :label="6">6</el-radio>
-      <el-radio :label="9">9</el-radio>
+      <el-radio-button :label="3">3</el-radio-button>
+      <el-radio-button :label="6">6</el-radio-button>
+      <el-radio-button :label="9">9</el-radio-button>
     </ez-radio-group>
   </div>
 </template>
@@ -19,29 +19,34 @@ export default {
   components: {},
   data() {
     return {
-      radio: 3,
+      radio: '',
     };
   },
   methods: {
     change(val) {
-      console.log(val);
+      console.log(val, "change");
     },
     handleBeforeChange(val) {
-      console.log(val)
-      return this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          return true;
+          this.radio=val
+          // return true;
         })
         .catch(() => {
-          return false
+          
+          // return false;
         });
     },
   },
-  created() {},
+  created() {
+   setTimeout(()=>{
+     this.radio=3
+   },2000)
+  },
 };
 </script>
 <style scoped>
