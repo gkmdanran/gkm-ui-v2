@@ -11,12 +11,17 @@
       </div>
     </div>
 
-    <div class="body">
+    <div class="body" v-if="scroll">
       <el-scrollbar ref="scroll" class="container-scroll">
         <div class="main-content">
           <slot></slot>
         </div>
       </el-scrollbar>
+    </div>
+    <div class="body" v-else>
+      <div class="main-content">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +41,10 @@ export default {
     backText: {
       type: String,
       default: "返回",
+    },
+    scroll: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
