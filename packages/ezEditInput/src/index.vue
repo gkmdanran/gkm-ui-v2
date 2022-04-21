@@ -135,6 +135,29 @@ export default {
 </script>
 <style lang="less" scoped>
 .ez-edit-input {
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  /*定义滚动条滑轨背景颜色 内阴影+圆角*/
+  ::-webkit-scrollbar-track {
+    background-color: #e5e5e5;
+    border-radius: 10px;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  }
+
+  /*定义滑块 内阴影+圆角*/
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 125, 0.3);
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      background-color: rgba(100, 100, 125, 0.5);
+      border-radius: 5px;
+    }
+  }
   .edit {
     position: relative;
     .edit-input.wrong {
@@ -161,7 +184,7 @@ export default {
       padding: 0;
       position: absolute;
       bottom: 6px;
-      right: 6px;
+      right: 8px;
     }
   }
   .read {
