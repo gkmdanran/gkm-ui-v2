@@ -2,17 +2,19 @@
   <div class="ez-container">
     <div class="header">
       <div class="back" @click="handleBack()">
-        <i :class="icon"></i>
-        <span class="back-text">{{ backText }}</span>
+        <slot name="backButton">
+          <i :class="icon"></i>
+          <span class="back-text">返回</span>
+        </slot>
       </div>
       <span class="title">{{ title }}</span>
       <div class="right_btn">
-        <slot name="right_btn"></slot>
+        <slot name="rightButton"></slot>
       </div>
     </div>
 
     <div class="body" v-if="scroll">
-      <el-scrollbar ref="scroll" class="container-scroll">
+      <el-scrollbar class="container-scroll">
         <div class="main-content">
           <slot></slot>
         </div>
@@ -30,17 +32,9 @@
 export default {
   name: "ezContainer",
   props: {
-    icon: {
-      type: String,
-      default: "el-icon-arrow-left",
-    },
     title: {
       type: String,
       default: "",
-    },
-    backText: {
-      type: String,
-      default: "返回",
     },
     scroll: {
       type: Boolean,
@@ -63,71 +57,78 @@ export default {
 </script>
 
 
-<style lang='less' scoped>
+<style scoped>
 .ez-container {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding: 20px;
   position: relative;
+}
 
-  .header {
-    background: #fff;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
-    position: relative;
+.header {
+  background: #fff;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
 
-    .back {
-      position: absolute;
-      left: 0;
-      top: 0;
-      margin-left: 25px;
-      cursor: pointer;
-      font-size: 15px;
-      color: #606266;
-      font-weight: 700;
-      .back-text {
-        margin-left: 5px;
-        font-weight: 400;
-      }
-    }
-    .title {
-      font-size: 20px;
-      color: #202124;
-    }
+.back {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #606266;
+  font-weight: 700;
+}
 
-    .right_btn {
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin-right: 25px;
-      cursor: pointer;
-    }
-  }
+.back-text {
+  margin-left: 5px;
+  font-weight: 400;
+}
 
-  .body {
-    box-sizing: border-box;
-    margin-top: 10px;
-    background-color: #fff;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
-    height: calc(100% - 60px);
-    overflow-y: auto;
-    .container-scroll {
-      width: 100%;
-      height: 100%;
-      /deep/ .el-scrollbar__wrap {
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
-    }
-    .main-content {
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 20px 25px;
-    }
-  }
+.title {
+  font-size: 20px;
+  color: #202124;
+}
+
+.right_btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.body {
+  box-sizing: border-box;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.05);
+  height: calc(100% - 60px);
+  overflow: hidden;
+}
+
+.container-scroll {
+  width: 100%;
+  height: 100%;
+}
+
+.container-scroll >>> .el-scrollbar__wrap {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px 25px;
 }
 </style>

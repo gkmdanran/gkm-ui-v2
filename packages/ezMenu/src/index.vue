@@ -1,7 +1,7 @@
 <template>
   <el-menu
     class="ez-menu"
-    ref="elMenu"
+    ref="ezMenu"
     v-bind="$attrs"
     v-on="$listeners"
     :default-active="activeNow"
@@ -30,28 +30,26 @@ export default {
     menuTree,
   },
   data() {
-    return {};
+    return {
+      ezMenu: null,
+    };
   },
   computed: {
     activeNow() {
       return this.$route.path;
     },
   },
-  methods: {
-    open(index) {
-      this.$refs.elMenu.open(index);
-    },
-    close(index) {
-      this.$refs.elMenu.close(index);
-    },
+  mounted() {
+    this.ezMenu = this.$refs.ezMenu;
   },
 };
 </script>
-<style lang="less" scoped>
+<style scoped>
 .ez-menu {
   overflow-x: hidden;
-  /deep/ .el-menu-item.is-active {
-    background-color: #12304c !important;
-  }
+}
+
+.el-menu {
+  border-right: none;
 }
 </style>

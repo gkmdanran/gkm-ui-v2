@@ -27,17 +27,15 @@ export default {
 
   methods: {
     handleClick(event) {
-      //节流
       if (new Date().valueOf() - this.timstamp < this.throttle) return;
-      let emitObj =
-        this.throttle === -1 ? { event, status: this.status } : event;
-
       if (this.confirm === undefined) {
-        !this.status.disabled && this.$emit("click", emitObj);
+        !this.status.disabled &&
+          this.$emit(
+            "click",
+            this.throttle === -1 ? { event, status: this.status } : event
+          );
         this.timstamp = new Date().valueOf();
-        if (this.throttle == -1) {
-          this.status.disabled = true;
-        }
+        this.throttle === -1 && (this.status.disabled = true);
       } else if (typeof this.confirm === "string") {
         !this.status.disabled &&
           this.$confirm(this.confirm, "提示", {
@@ -46,11 +44,11 @@ export default {
             type: "warning",
           })
             .then(() => {
-              this.$emit("confirmClick", emitObj);
+              this.throttle === -1
+                ? this.$emit("confirmClick", this.status)
+                : this.$emit("confirmClick");
               this.timstamp = new Date().valueOf();
-              if (this.throttle == -1) {
-                this.status.disabled = true;
-              }
+              this.throttle === -1 && (this.status.disabled = true);
             })
             .catch(() => {
               this.$emit("cancelClick");
@@ -65,11 +63,11 @@ export default {
             type: this.confirm.type || "warning",
           })
             .then(() => {
-              this.$emit("confirmClick", emitObj);
+              this.throttle === -1
+                ? this.$emit("confirmClick", this.status)
+                : this.$emit("confirmClick");
               this.timstamp = new Date().valueOf();
-              if (this.throttle == -1) {
-                this.status.disabled = true;
-              }
+              this.throttle === -1 && (this.status.disabled = true);
             })
             .catch(() => {
               this.$emit("cancelClick");
@@ -79,5 +77,3 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-</style>

@@ -4,17 +4,17 @@
       menu[(treeProps && treeProps.children) || 'children'] &&
       menu[(treeProps && treeProps.children) || 'children'].length > 0
     "
-    :index="menu[(treeProps && treeProps.id) || 'id']"
     v-bind="menu.attributes"
+    :index="String(menu[(treeProps && treeProps.id) || 'id'] || '')"
   >
     <template slot="title">
       <i :class="menu[(treeProps && treeProps.icon) || 'icon']"></i>
-      <span>{{ menu[(treeProps && treeProps.name) || "name"] }}</span>
+      <span>{{ menu[(treeProps && treeProps.name) || "name"] || "" }}</span>
     </template>
     <menu-tree
       v-for="(item, index) in menu[
         (treeProps && treeProps.children) || 'children'
-      ]"
+      ] || []"
       :tree-props="treeProps"
       :key="index"
       :menu="item"
@@ -25,12 +25,12 @@
   </el-submenu>
   <el-menu-item
     v-else
-    :index="parentPath + (menu[(treeProps && treeProps.path) || 'path'] || '')"
     v-bind="menu.attributes"
+    :index="parentPath + (menu[(treeProps && treeProps.path) || 'path'] || '')"
   >
     <i :class="menu[(treeProps && treeProps.icon) || 'icon']"></i>
     <span slot="title">{{
-      menu[(treeProps && treeProps.name) || "name"]
+      menu[(treeProps && treeProps.name) || "name"] || ""
     }}</span>
   </el-menu-item>
 </template>
@@ -56,5 +56,3 @@ export default {
   methods: {},
 };
 </script>
-<style lang="less" scoped>
-</style>

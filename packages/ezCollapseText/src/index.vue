@@ -1,5 +1,5 @@
 <template>
-  <div class="ez-collpase-text" v-bind="$attrs">
+  <div class="ez-collapse-text" v-bind="$attrs">
     <div v-show="!selfExpand">
       <span class="text">{{
         text.length > limit ? `${text.substring(0, limit)}...` : text
@@ -8,8 +8,9 @@
         type="text"
         v-if="text.length > limit"
         @click="expandClick(true)"
-        >展开</el-button
       >
+        <slot name="unfold">展开</slot>
+      </el-button>
     </div>
     <div v-show="selfExpand">
       <span class="text">{{ text }}</span>
@@ -17,8 +18,9 @@
         type="text"
         v-if="text.length > limit"
         @click="expandClick(false)"
-        >收起</el-button
       >
+        <slot name="fold">收起</slot>
+      </el-button>
     </div>
   </div>
 </template>
@@ -48,6 +50,7 @@ export default {
   methods: {
     expandClick(type) {
       this.selfExpand = type;
+      this.$emit("change", type);
     },
   },
   watch: {
@@ -60,17 +63,19 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-.ez-collpase-text {
+<style scoped>
+.ez-collapse-text {
   width: 250px;
   font-size: 14px;
   line-height: 1.5em;
   word-break: break-all;
+}
 
-  .el-button--text {
-    padding: 0;
-    font-size: inherit;
-    padding-left: 5px;
-  }
+.ez-collapse-text .el-button--text {
+  padding: 0;
+  font-size: inherit;
+  padding-left: 5px;
+  line-height: inherit;
+  height: auto;
 }
 </style>
