@@ -4,9 +4,7 @@
       !columnNode.slotName &&
       !columnNode.prop &&
       !columnNode.children &&
-      columnNode.show === undefined
-        ? true
-        : columnNode.show
+      (!('show' in columnNode) ? true : columnNode.show)
     "
     v-bind="columnNode"
   >
@@ -21,9 +19,7 @@
     v-else-if="
       columnNode.children &&
       columnNode.children.length > 0 &&
-      columnNode.show === undefined
-        ? true
-        : columnNode.show
+      (!('show' in columnNode) ? true : columnNode.show)
     "
     v-bind="columnNode"
   >
@@ -46,7 +42,7 @@
   </el-table-column>
 
   <el-table-column
-    v-else-if="columnNode.show === undefined ? true : columnNode.show"
+    v-else-if="!('show' in columnNode) ? true : columnNode.show"
     v-bind="columnNode"
   >
     <template slot-scope="scope">

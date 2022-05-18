@@ -3,14 +3,34 @@
     <el-row>
       <el-col
         :style="`width:${
-          item.layout && typeof item.layout == 'string' && item.layout
+          item.layout && typeof item.layout === 'string' && item.layout
         }`"
         v-for="(item, key) in searchJson.searchItems || {}"
-        :xl="(item.layout && item.layout.xl) || 4"
-        :lg="(item.layout && item.layout.lg) || 6"
-        :md="(item.layout && item.layout.md) || 8"
-        :sm="(item.layout && item.layout.sm) || 12"
-        :xs="(item.layout && item.layout.xs) || 24"
+        :xl="
+          (item.layout && item.layout.xl) ||
+          (searchJson.layout && searchJson.layout.xl) ||
+          4
+        "
+        :lg="
+          (item.layout && item.layout.lg) ||
+          (searchJson.layout && searchJson.layout.lg) ||
+          6
+        "
+        :md="
+          (item.layout && item.layout.md) ||
+          (searchJson.layout && searchJson.layout.md) ||
+          8
+        "
+        :sm="
+          (item.layout && item.layout.sm) ||
+          (searchJson.layout && searchJson.layout.sm) ||
+          12
+        "
+        :xs="
+          (item.layout && item.layout.xs) ||
+          (searchJson.layout && searchJson.layout.xs) ||
+          24
+        "
         :key="key"
       >
         <el-form-item
@@ -54,6 +74,51 @@
               "
             ></el-option>
           </el-select>
+          <el-radio-group
+            v-else-if="item.type === 'radioButton'"
+            style="width: 100%"
+            v-bind="item.attrs || {}"
+            :value="value[key]"
+            @input="handleValueChange($event, key, item)"
+          >
+            <el-radio-button
+              v-for="opt in item.selectOptions"
+              v-bind="opt"
+              :key="
+                opt[(item.selectProps && item.selectProps.value) || 'value']
+              "
+              :label="
+                opt[(item.selectProps && item.selectProps.value) || 'value']
+              "
+            >
+              {{
+                opt[(item.selectProps && item.selectProps.label) || "label"]
+              }}</el-radio-button
+            >
+          </el-radio-group>
+          <!-- 单选框 -->
+          <el-radio-group
+            v-else-if="item.type === 'radio'"
+            style="width: 100%"
+            v-bind="item.attrs || {}"
+            :value="value[key]"
+            @input="handleValueChange($event, key, item)"
+          >
+            <el-radio
+              v-for="opt in item.selectOptions"
+              v-bind="opt"
+              :key="
+                opt[(item.selectProps && item.selectProps.value) || 'value']
+              "
+              :label="
+                opt[(item.selectProps && item.selectProps.value) || 'value']
+              "
+            >
+              {{
+                opt[(item.selectProps && item.selectProps.label) || "label"]
+              }}</el-radio
+            >
+          </el-radio-group>
           <el-time-picker
             v-else-if="item.type === 'time'"
             clearable
@@ -76,6 +141,7 @@
           </el-date-picker>
         </el-form-item>
       </el-col>
+      <slot name="searchButton"></slot>
     </el-row>
   </el-form>
 </template>
@@ -126,13 +192,12 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-.ez-search-form {
-  /deep/ .el-form-item__label {
-    padding: 0;
-  }
-  /deep/ .el-form-item {
-    margin-bottom: 0px;
-  }
+<style scoped>
+.ez-search >>> .el-form-item__label {
+  padding: 0;
+}
+
+.ez-search >>> .el-form-item {
+  margin-bottom: 0px;
 }
 </style>
