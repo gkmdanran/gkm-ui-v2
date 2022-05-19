@@ -1,7 +1,7 @@
 <template>
-  <span class="icon-ez-box" :style="{ color: color, fontSize: fontSize }">
-    <i v-if="elIcon" class="icon icon-ez" :class="name"></i>
-    <svg class="icon icon-ez" aria-hidden="true" v-else>
+  <span class="ez-icon" :style="{ color: color, fontSize: fontSize }">
+    <i v-if="builtIn" class="icon" :class="name"></i>
+    <svg class="icon" aria-hidden="true" v-else>
       <use :xlink:href="`#${name}`"></use>
     </svg>
   </span>
@@ -10,9 +10,9 @@
 export default {
   name: "ezIcon",
   props: {
-    elIcon: {
+    builtIn: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     name: {
       type: String,

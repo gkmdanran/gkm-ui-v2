@@ -21,12 +21,14 @@
       :parent-path="
         parentPath + (menu[(treeProps && treeProps.path) || 'path'] || '')
       "
+      @clickMenuItem="$emit('clickMenuItem', $event)"
     ></menu-tree>
   </el-submenu>
   <el-menu-item
     v-else
     v-bind="menu.attributes"
     :index="parentPath + (menu[(treeProps && treeProps.path) || 'path'] || '')"
+    @click="$emit('clickMenuItem', menu)"
   >
     <i :class="menu[(treeProps && treeProps.icon) || 'icon']"></i>
     <span slot="title">{{

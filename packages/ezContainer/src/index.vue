@@ -3,7 +3,7 @@
     <div class="header">
       <div class="back" @click="handleBack()">
         <slot name="backButton">
-          <i :class="icon"></i>
+          <i class="el-icon-arrow-left"></i>
           <span class="back-text">返回</span>
         </slot>
       </div>

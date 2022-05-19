@@ -1,5 +1,5 @@
 <template>
-  <el-button v-bind="$attrs" @click="handleClick">
+  <el-button v-bind="$attrs" @click="handleClick" class="ez-button">
     <slot></slot>
   </el-button>
 </template>

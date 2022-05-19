@@ -12,6 +12,7 @@
       :tree-props="menuJson.treeProps"
       :key="index"
       :menu="item"
+      @clickMenuItem="$emit('clickMenuItem', $event)"
     ></menu-tree>
   </el-menu>
 </template>
