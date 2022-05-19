@@ -49,7 +49,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           />
           <el-select
             v-else-if="item.type === 'select'"
@@ -58,7 +58,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           >
             <el-option
               v-for="opt in item.selectOptions"
@@ -79,7 +79,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           >
             <el-radio-button
               v-for="opt in item.selectOptions"
@@ -102,7 +102,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+           @input="handleValueChange($event, value[key], key, item)"
           >
             <el-radio
               v-for="opt in item.selectOptions"
@@ -126,7 +126,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           >
           </el-time-picker>
           <el-date-picker
@@ -136,7 +136,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-            @input="handleValueChange($event, key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           >
           </el-date-picker>
         </el-form-item>
@@ -158,36 +158,30 @@ export default {
       default: "80px",
     },
     value: {
+      type: Object,
       required: true,
+    },
+    debounce: {
+      type: Number,
+      default: 300,
     },
   },
   data() {
     return {
-      timer: null,
+      timeout: -1,
     };
   },
   methods: {
-    handleValueChange(val, key, item) {
-      this.$emit("input", { ...this.value, [key]: val });
-      const debounceEmit = this.debounce(() => {
-        this.$emit("search", { ...this.value, [key]: val });
-      });
-      if (item.type === "input") {
-        debounceEmit();
-      } else {
-        this.$emit("search", { ...this.value, [key]: val });
+    handleValueChange(newVal, oldVal, key, item) {
+      let value = item.type === "input" && item.isTrim ? newVal.trim() : newVal;
+      if (value === oldVal) return;
+      this.$emit("input", { ...this.value, [key]: value });
+      if (this.timeout) {
+        clearTimeout(this.timeout);
       }
-    },
-    debounce(fn) {
-      return () => {
-        if (this.timer) {
-          window.clearTimeout(this.timer);
-          this.timer = null;
-        }
-        this.timer = window.setTimeout(() => {
-          fn();
-        }, 500);
-      };
+      this.timeout = window.setTimeout(() => {
+        this.$emit("change", { ...this.value, [key]: value });
+      }, this.debounce);
     },
   },
 };
