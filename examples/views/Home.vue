@@ -25,6 +25,9 @@ export default {
             isTrim: true,
             label: "姓名",
             placeholder: "输入姓名",
+            attrs:{
+              clearable:false
+            }
           },
           sex: {
             type: "select",
@@ -57,13 +60,19 @@ export default {
           updateTime: {
             type: "time",
             label: "操作时间",
-            layout: "500px",
+            layout: '500px',
             attrs: {
               size: "large",
             },
           },
         },
-        layout: "300px",
+        layout: {
+          xl:24,
+          lg:24,
+          md:24,
+          sm:24,
+          xs:24
+        },
         itemStyle: "margin-bottom:20px;margin-right:10px",
       },
       searchForm: {

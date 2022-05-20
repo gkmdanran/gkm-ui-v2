@@ -1,10 +1,8 @@
 <template>
-  <el-form class="ez-search-form" v-bind="$attrs" :label-width="labelWidth">
+  <el-form class="ez-search-form" v-bind="$attrs">
     <el-row>
       <el-col
-        :style="`width:${
-          item.layout && typeof item.layout === 'string' && item.layout
-        }`"
+        :style="getStyle(item)"
         v-for="(item, key) in searchJson.searchItems || {}"
         :xl="
           (item.layout && item.layout.xl) ||
@@ -42,6 +40,7 @@
               : 'margin-right:8px;margin-bottom:10px'
           "
         >
+          <!-- 输入框 -->
           <el-input
             v-if="item.type === 'input'"
             clearable
@@ -51,6 +50,7 @@
             :value="value[key]"
             @input="handleValueChange($event, value[key], key, item)"
           />
+          <!-- 选择下拉框 -->
           <el-select
             v-else-if="item.type === 'select'"
             clearable
@@ -74,6 +74,7 @@
               "
             ></el-option>
           </el-select>
+          <!-- 单选按钮 -->
           <el-radio-group
             v-else-if="item.type === 'radioButton'"
             style="width: 100%"
@@ -102,7 +103,7 @@
             style="width: 100%"
             v-bind="item.attrs || {}"
             :value="value[key]"
-           @input="handleValueChange($event, value[key], key, item)"
+            @input="handleValueChange($event, value[key], key, item)"
           >
             <el-radio
               v-for="opt in item.selectOptions"
@@ -119,6 +120,7 @@
               }}</el-radio
             >
           </el-radio-group>
+          <!-- 时间选择 -->
           <el-time-picker
             v-else-if="item.type === 'time'"
             clearable
@@ -129,6 +131,7 @@
             @input="handleValueChange($event, value[key], key, item)"
           >
           </el-time-picker>
+          <!-- 日期选择 -->
           <el-date-picker
             v-else-if="item.type === 'date' || item.type === 'datetime'"
             clearable
@@ -154,9 +157,6 @@ export default {
       type: Object,
       required: true,
     },
-    labelWidth: {
-      default: "80px",
-    },
     value: {
       type: Object,
       required: true,
@@ -172,6 +172,19 @@ export default {
     };
   },
   methods: {
+    getStyle(item) {
+      if (!("layout" in item)) {
+        if (typeof this.searchJson.layout === "string") {
+          return `min-width:${this.searchJson.layout}!important;max-width:${this.searchJson.layout}!important;`;
+        } else {
+          return "";
+        }
+      } else if (typeof item.layout === "string") {
+        return `min-width:${item.layout}!important;max-width:${item.layout}!important;`;
+      } else {
+        return "";
+      }
+    },
     handleValueChange(newVal, oldVal, key, item) {
       let value = item.type === "input" && item.isTrim ? newVal.trim() : newVal;
       if (value === oldVal) return;

@@ -19,21 +19,21 @@ import ezEditor from './ezEditor'
 import ezRadioGroup from './ezRadioGroup'
 
 const components = [
+    // ezUpload,
+    // ezScrollTab,
+    // ezEditSelect,
+    // ezDialogForm,
+    // ezIcon,
+    // ezLazyImg,
+    // ezEditor,
     ezButton,
-    ezUpload,
     ezTable,
     ezCollapseText,
     ezMenu,
     ezSearch,
-    ezScrollTab,
     ezEditInput,
-    ezEditSelect,
-    ezDialogForm,
     ezContainer,
     ezCollapseList,
-    ezIcon,
-    ezLazyImg,
-    ezEditor,
     ezRadioGroup
 ]
 const install = function (Vue) {
