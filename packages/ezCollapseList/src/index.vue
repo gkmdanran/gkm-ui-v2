@@ -74,7 +74,6 @@ export default {
   padding: 0;
   margin: 0;
   font-size: inherit;
-  line-height: inherit;
   height: auto;
 }
 

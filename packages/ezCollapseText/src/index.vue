@@ -75,7 +75,6 @@ export default {
   padding: 0;
   font-size: inherit;
   padding-left: 5px;
-  line-height: inherit;
   height: auto;
 }
 </style>

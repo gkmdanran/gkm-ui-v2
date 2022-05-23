@@ -87,7 +87,7 @@ export default {
 };
 </script>
 ```
-ezTable属性、事件、方法均可参考[ElementPlus](https://element.eleme.cn/#/zh-CN/component/table)
+ezTable属性、事件、方法均可参考[ElementUI](https://element.eleme.cn/#/zh-CN/component/table)
 
 ezTable扩展属性
 |参数|说明|类型|可选值|默认值|

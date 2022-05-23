@@ -1,13 +1,14 @@
 const path = require('path');
 
 module.exports = {
-    title: 'easyUI',
+    title: 'gkmUI',
     description: '基于elementUI二次开发的组件库',
     port: 8087,
     head: [
         ['link', { rel: 'icon', href: '/favicon.ico' }]
     ],
     themeConfig: {
+        search: false,
         logo: '/assets/img/photo.jpg',
         nav: [
             {
