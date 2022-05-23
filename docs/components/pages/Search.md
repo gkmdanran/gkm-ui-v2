@@ -11,9 +11,6 @@
     @change="handleChange"
     :debounce="500"
   >
-    <template #searchButton>
-      <ez-button>重 置</ez-button>
-    </template>
   </ez-search>
 </template>
 
@@ -93,7 +90,7 @@ ezSearch属性
 |-|-|-|-|-|
 |searchJson|搜索表单渲染配置|object|-|必填|
 |debounce|防抖时间，单位：ms|number|-|300|
-|modelValue / v-model|绑定搜索表单|object，仅支持ref包裹的对象|-|-|
+|value / v-model|绑定搜索表单|object|-|-|
 
 
 searchJson配置

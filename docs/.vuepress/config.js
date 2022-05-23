@@ -68,7 +68,7 @@ module.exports = {
                 {
                     title: 'Form 表单组件',
                     children: [
-                        ['/components/pages/RadioGroup', 'RadioGroup 单选框组'],
+                        // ['/components/pages/RadioGroup', 'RadioGroup 单选框组'],
                         ['/components/pages/Search', 'Search 搜索'],
                     ]
                 },

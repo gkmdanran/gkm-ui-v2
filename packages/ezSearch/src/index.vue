@@ -1,5 +1,5 @@
 <template>
-  <el-form class="ez-search-form" v-bind="$attrs">
+  <el-form class="ez-search-form" v-bind="$attrs" :labelWidth="labelWidth">
     <el-row>
       <el-col
         :style="getStyle(item)"
@@ -157,6 +157,10 @@ export default {
       type: Object,
       required: true,
     },
+    labelWidth: {
+      type: String,
+      default: "80px",
+    },
     value: {
       type: Object,
       required: true,
@@ -200,6 +204,10 @@ export default {
 };
 </script>
 <style scoped>
+.el-row {
+  display: flex;
+  flex-wrap: wrap;
+}
 .ez-search >>> .el-form-item__label {
   padding: 0;
 }

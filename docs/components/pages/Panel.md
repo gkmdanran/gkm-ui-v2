@@ -121,8 +121,8 @@ ezPanel属性
 |参数|说明|类型|可选值|默认值|
 |-|-|-|-|-|
 |panelJson|面板渲染配置|object|-|必填|
-|search|搜索表单|object|-|-|
-|pagination|分页表单|object|-|-|
+|search|搜索表单，需要使用.sync修饰符|object|-|-|
+|pagination|分页表单，需要使用.sync修饰符|object|-|-|
 |tableTotal|表格总量|number|-|0|
 |tableData|表格数据|array|-|-|
 |containerColor|面板容器内容背景色|string|-|-|
