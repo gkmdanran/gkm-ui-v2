@@ -96,7 +96,7 @@ export default {
     change({ combine, search, pagination }) {
       console.log(combine, search, pagination);
       this.data = [];
-      window.setTimeout(() => {
+      setTimeout(() => {
         this.data = [
           { name: "小明", english: 90, chinese: 60, math: 71 },
           { name: "小王", english: 93, chinese: 20, math: 78 },
