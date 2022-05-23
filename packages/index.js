@@ -17,6 +17,7 @@ import ezIcon from './ezIcon'
 import ezLazyImg from './ezLazyImg'
 import ezEditor from './ezEditor'
 import ezRadioGroup from './ezRadioGroup'
+import ezPanel from './ezPanel'
 
 const components = [
     // ezUpload,
@@ -34,7 +35,8 @@ const components = [
     ezEditInput,
     ezContainer,
     ezCollapseList,
-    ezRadioGroup
+    ezRadioGroup,
+    ezPanel
 ]
 const install = function (Vue) {
     Vue.use(ElementUI)
