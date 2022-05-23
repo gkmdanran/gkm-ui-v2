@@ -114,7 +114,7 @@ searchItems\[key\]配置
 |selectOptions|选项值列表，type为select/radio/radioButton时生效|array|-|-|
 |selectProps|数据源的字段别名，type为select/radio/radioButton时生效|array|-|{label:"label",value:"value"}|
 |layout|搜索项的长度，可以是固定值，也可以通过传入对象使用栅栏布局|string / object|-|{xl:4,lg:6,md:8,sm:12,xs:24}|
-|attrs|每个控件对应的属性，可参考ElementPlus|object|-|-|
+|attrs|每个控件对应的属性，可参考ElementUI|object|-|-|
 
 ezSearch插槽
 |name|说明|
