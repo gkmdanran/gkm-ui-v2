@@ -8,6 +8,7 @@
         type="text"
         v-if="text.length > limit"
         @click="expandClick(true)"
+        class="unfold-btn"
       >
         <slot name="unfold">展开</slot>
       </el-button>
@@ -18,6 +19,7 @@
         type="text"
         v-if="text.length > limit"
         @click="expandClick(false)"
+        class="fold-btn"
       >
         <slot name="fold">收起</slot>
       </el-button>
