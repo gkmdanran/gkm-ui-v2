@@ -15,10 +15,10 @@
             (!selfExpand && index === limit - 1))
         "
       >
-        <el-button v-show="!selfExpand" type="text" @click="expandClick(true)">
+        <el-button v-show="!selfExpand" type="text" @click="expandClick(true)" class="unfold-btn">
           <slot name="unfold">展开</slot>
         </el-button>
-        <el-button type="text" v-show="selfExpand" @click="expandClick(false)">
+        <el-button type="text" v-show="selfExpand" @click="expandClick(false)" class="fold-btn">
           <slot name="fold">收起</slot>
         </el-button>
       </div>
