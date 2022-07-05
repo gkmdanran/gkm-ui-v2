@@ -4,8 +4,8 @@ import { Button } from 'element-ui';
 
 
 describe('ezCollapseText.vue', () => {
+    const text = '测试文本测试文本测试文本'
     it('测试默认折叠长度是否为10', () => {
-        const text = '测试文本测试文本测试文本'
         const wrapper = shallowMount(ezCollapseText, {
             propsData: { text },
             components: {
@@ -15,10 +15,8 @@ describe('ezCollapseText.vue', () => {
         expect(wrapper.find('.text').text()).toBe('测试文本测试文本测试...')
     })
     it('测试limit控制折叠长度是否有效', () => {
-        const text = '测试文本测试文本测试文本'
-        const limit = 11
         const wrapper = shallowMount(ezCollapseText, {
-            propsData: { text, limit },
+            propsData: { text, limit:11 },
             components: {
                 elButton: Button
             }
@@ -28,7 +26,7 @@ describe('ezCollapseText.vue', () => {
     it('测试展开折叠点击是否有效', () => {
         const wrapper = shallowMount(ezCollapseText, {
             propsData: {
-                text: "测试文本测试文本测试文本",
+                text,
             },
             components: {
                 elButton: Button
@@ -42,8 +40,8 @@ describe('ezCollapseText.vue', () => {
     it('测试文本长度小于limit时不显示按钮', () => {
         const wrapper = shallowMount(ezCollapseText, {
             propsData: {
-                text: "测试",
-                limit: 10
+                text,
+                limit: 100
             },
             components: {
                 elButton: Button
@@ -55,7 +53,7 @@ describe('ezCollapseText.vue', () => {
     it('测试按钮插槽', () => {
         const wrapper = shallowMount(ezCollapseText, {
             propsData: {
-                text: "测试文本测试文本测试文本",
+                text,
             },
             slots: {
                 unfold: "点击展开",
