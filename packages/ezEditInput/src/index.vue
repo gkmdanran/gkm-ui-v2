@@ -16,7 +16,7 @@
           v-if="$attrs.type !== 'textarea'"
           slot="suffix"
           type="text"
-          class="el-input__icon"
+          class="el-input__icon inputbtn"
           @click="confirm('click')"
           >确认</el-button
         >
