@@ -11,6 +11,7 @@ import ezContainer from './ezContainer'
 import ezCollapseList from './ezCollapseList'
 import ezRadioGroup from './ezRadioGroup'
 import ezPanel from './ezPanel'
+import ezSwitch from './ezSwitch'
 import ezUpload from './ezUpload'
 import ezScrollTab from './ezScrollTab'
 import ezEditSelect from './ezEditSelect'
@@ -36,6 +37,7 @@ const components = [
     ezContainer,
     ezCollapseList,
     ezRadioGroup,
+    ezSwitch,
     ezPanel
 ]
 const install = function (Vue) {
